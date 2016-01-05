@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <title>React.js, Isotope, Flux</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/darkly/bootstrap.min.css" rel="stylesheet">
+
+        <link href="<%- STYLE_URL %>" rel="stylesheet"/>
+    </head>
+    <body>
+        <script type="text/javascript">
+            window.app = {}
+            window.app['mainJsHash'] = "<%- mainJsHash %>";
+            window.app['version'] = "<%- version %>";
+        </script>
+
+        <div id="content">
+            <%- body %>
+        </div>
+
+        <!-- If using the commons in webpack. Not currently hence the dev testing-->
+        <% if (ENV == 'development' && COMMONS_URL) { %>
+        <script type="text/javascript" src="<%- COMMONS_URL %>"></script>
+        <% } %>
+
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
+        <!--For debugging Isotope, if you wish -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js"></script>-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+        <!-- Inject the main script for bootstrapping React -->
+        <script type="text/javascript" src="<%- SCRIPT_URL %>"></script>
+    </body>
+</html>

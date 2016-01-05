@@ -1,0 +1,37 @@
+node_modules/
+bower_components/
+npm-debug.log
+logs/*
+
+extensions/chrome/*!manifest.json
+extensions/firefox/*!package.json
+
+### WebStorm ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+
+## Directory-based project format:
+.idea/
+
+dist/
+
+# Webpack output, including for prod, but that is build on prod push to ITOS
+build/public
+build/stats.json
+
+## File-based project format:
+*.ipr
+*.iws
+
+# OS generated files #
+# ######################
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# # Files that might appear on external disk
+.Spotlight-V100
+.Trashes
