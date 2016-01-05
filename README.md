@@ -2,7 +2,7 @@
 
 This webapp combines together React, Isotope, and Flux (Alt) so you can see one way of accomplishing this combination of libraries.
 
-
+![Demo Screen](https://cloud.githubusercontent.com/assets/2019830/12128230/eae6b438-b3c9-11e5-8531-f0e7a339403e.png)
 
 ## Local Installation and development
 
