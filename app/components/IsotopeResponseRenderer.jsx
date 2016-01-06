@@ -76,7 +76,10 @@ export default class IsotopeResponseRenderer extends React.Component {
         }
     }
     componentDidUpdate(prevProps) {
+        // The list of keys seen in the previous render
         let currentKeys = _.map(prevProps.children, (n) => n.key);
+
+        // The latest list of keys that have been rendered
         let newKeys = _.map(this.props.children, (n) => n.key);
 
         // Find which keys are new between the current set of keys and any new children passed to this component
