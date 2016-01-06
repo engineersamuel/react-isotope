@@ -6,7 +6,7 @@ import QueryActions         from "../actions/ElementActions";
 class ElementStore {
     constructor() {
         this.state = {
-            type: null,
+            type: '',
             elements: [],
             loading: false,
             err: null

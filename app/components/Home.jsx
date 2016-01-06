@@ -10,6 +10,7 @@ import Spacer                   from "./Spacer";
 import ElementActions       from "../flux/actions/ElementActions";
 import ElementStore         from "../flux/stores/ElementStore";
 import FilterSortActions    from "../flux/actions/FilterSortActions";
+import FilterSortStore      from "../flux/stores/FilterSortStore";
 import connectToStores      from 'alt/utils/connectToStores';
 
 // The Home.less contains the CSS as copied from the Isotope example @ http://codepen.io/desandro/pen/nFrte
@@ -44,18 +45,12 @@ const filterData = [
 export default class Home extends React.Component {
     constructor(props, context) {
         super(props, context);
-        // This state is only for setting the active flag on buttons
-        this.state = {
-            sort: '',
-            filter: '*',
-            load: ''
-        };
     }
     static getStores() {
-        return [ElementStore];
+        return [ElementStore, FilterSortStore];
     }
     static getPropsFromStores() {
-        return ElementStore.getState();
+        return _.assign(ElementStore.getState(), FilterSortStore.getState());
     }
     shouldComponentUpdate(nextProps, nextState) {
         return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
@@ -65,20 +60,18 @@ export default class Home extends React.Component {
     }
     filterElements(filter, e) {
         FilterSortActions.filter(filter);
-        this.setState({filter: filter})
     }
     sortElements(sort, e) {
         FilterSortActions.sort(sort);
-        this.setState({sort: sort})
     }
     renderLoadButtons() {
         return _.map(loadData, d => <Button key={d.name} active={this.props.type == d.value} onClick={ElementActions.loadElements.bind(this, d.value)}>{d.name}</Button>, this)
     }
     renderFilterButtons() {
-        return _.map(filterData, d => <Button key={d.name} active={this.state.filter == d.value} onClick={this.filterElements.bind(this, d.value)}>{d.name}</Button>, this)
+        return _.map(filterData, d => <Button key={d.name} active={this.props.filter == d.value} onClick={this.filterElements.bind(this, d.value)}>{d.name}</Button>, this)
     }
     renderSortButtons() {
-        return _.map(sortData, d => <Button key={d.name} active={this.state.sort == d.value} onClick={this.sortElements.bind(this, d.value)}>{d.name}</Button>, this)
+        return _.map(sortData, d => <Button key={d.name} active={this.props.sort == d.value} onClick={this.sortElements.bind(this, d.value)}>{d.name}</Button>, this)
     }
     renderNoData() {
         if (_.get(this, 'props.elements.length', 0) > 0) return null;

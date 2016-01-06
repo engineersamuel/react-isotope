@@ -7,8 +7,8 @@ class FilterSortStore {
     constructor() {
         this.object = null;
         this.state = {
-            filter: null,
-            sort: null
+            filter: '*',
+            sort: ''
         }
     }
 
