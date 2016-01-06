@@ -8,7 +8,7 @@ import FilterSortStore      from '../flux/stores/FilterSortStore';
 
 @connectToStores
 export default class IsotopeResponseRenderer extends React.Component {
-    // This class takes no arguments, pass in children of type Element
+    // This class takes no attributes, pass in children of type Element
     static propTypes = {};
     static getStores() {
         return [FilterSortStore];
@@ -67,11 +67,6 @@ export default class IsotopeResponseRenderer extends React.Component {
             this.iso.arrange({sortBy: nextProps.sort});
         }
     }
-    componentWillUnmount() {
-        if (this.iso != null) {
-            this.iso.destroy();
-        }
-    }
     componentDidMount() {
         this.createIsotopeContainer();
 
@@ -83,32 +78,25 @@ export default class IsotopeResponseRenderer extends React.Component {
     componentDidUpdate(prevProps) {
         let currentKeys = _.map(prevProps.children, (n) => n.key);
         let newKeys = _.map(this.props.children, (n) => n.key);
-        let addKeys = [];
-        let removeKeys = [];
 
         // Find which keys are new between the current set of keys and any new children passed to this component
-        newKeys.forEach((newKey) => {
-            if (!_.includes(currentKeys, newKey)) {
-                addKeys.push(newKey);
-            }
-        });
+        let addKeys = _.difference(newKeys, currentKeys);
 
         // Find which keys have been removed between the current set of keys and any new children passed to this component
-        currentKeys.forEach((currentKey) => {
-            if (!_.includes(newKeys, currentKey)) {
-                removeKeys.push(currentKey);
-            }
-        });
+        let removeKeys = _.difference(currentKeys, newKeys);
 
         if (removeKeys.length > 0) {
-            //console.log(`Removing ${removeKeys.length} elements`);
             _.each(removeKeys, removeKey => this.iso.remove(document.getElementById(removeKey)));
             this.iso.arrange();
         }
         if (addKeys.length > 0) {
-            //console.log(`Adding ${addKeys.length} elems`);
             this.iso.addItems(_.map(addKeys, (addKey) => document.getElementById(addKey)));
             this.iso.arrange();
+        }
+    }
+    componentWillUnmount() {
+        if (this.iso != null) {
+            this.iso.destroy();
         }
     }
     createIsotopeContainer() {
